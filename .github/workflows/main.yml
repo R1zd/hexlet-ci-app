@@ -1,0 +1,24 @@
+name: Hexlet-ci
+
+on: 
+  push:
+    branches:
+      -  main
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      # Клонируем репозиторий
+      - uses: actions/checkout@v3
+      # Устанавливаем Node.js
+      - uses: actions/setup-node@v3
+      - run: make setup
+      - run: make start
+      - name: Run tests
+        run: make test
+      - name: Rin lint
+        run: make lint
+      
